@@ -1,19 +1,25 @@
-static USAGE: &'static str = "
+#[macro_use]
+extern crate serde_derive;
+extern crate docopt;
+
+use docopt::Docopt;
+
+const USAGE: &'static str = "
 Usage:
     cref
     cref import <import-repo>...
     cref list
     cref update [<update-repo>...]
     cref delete <delete-repo>
-    cref (--help | --version )
+    cref (--help | --version)
 
 Options:
-    -h, --help      Show this screen
-    -v, --version   Show version
+    -h, --help     Show this screen
+    -v, --version  Show version
 ";
 
-#[derive(RustcDecodable, Debug)]
-pub struct Args {
+#[derive(Debug, Deserialize)]
+struct Args {
     cmd_import: bool,
     arg_import_repo: Vec<String>,
     cmd_list: bool,
@@ -27,6 +33,7 @@ pub struct Args {
 
 fn main() {
     let args: Args = Docopt::new(USAGE)
-        .and_then(|d| d.decode())
+        .and_then(|d| d.deserialize())
         .unwrap_or_else(|e| e.exit());
+        println!("{:?}", args);
 }
