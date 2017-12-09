@@ -1,10 +1,13 @@
+#![feture(plugin)]
+#![plugin(docopt_macros)]
+
 #[macro_use]
 extern crate serde_derive;
 extern crate docopt;
 
 use docopt::Docopt;
 
-const USAGE: &'static str = "
+docopt!(Args derive Debug, "
 Usage:
     cref
     cref import <import-repo>...
@@ -16,24 +19,9 @@ Usage:
 Options:
     -h, --help     Show this screen
     -v, --version  Show version
-";
-
-#[derive(Debug, Deserialize)]
-struct Args {
-    cmd_import: bool,
-    arg_import_repo: Vec<String>,
-    cmd_list: bool,
-    cmd_update: bool,
-    arg_update_repo: Vec<String>,
-    cmd_delete: bool,
-    arg_delete_repo: String,
-    flag_help: bool,
-    flag_version: bool
-}
+");
 
 fn main() {
-    let args: Args = Docopt::new(USAGE)
-        .and_then(|d| d.deserialize())
-        .unwrap_or_else(|e| e.exit());
-        println!("{:?}", args);
+    let args: Args = Args::docopt().deserialize().unwrap_or_else(|e| e.exit());
+    println!("{:?}", args);
 }
