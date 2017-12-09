@@ -7,7 +7,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "cli_search_proper_english_message"
+name = "cli_docopt"
 version = "0.1.0"
 dependencies = [
  "docopt 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)",

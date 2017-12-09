@@ -1,5 +1,5 @@
 [package]
-name = "cli_search_proper_english_message"
+name = "cli_docopt"
 version = "0.1.0"
 authors = ["Kazuki Higashiguchi <k.higashiguchi@binc.jp>"]
 
